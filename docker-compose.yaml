@@ -1,0 +1,23 @@
+services:
+  traefik:
+    image: traefik:3.3.4
+    volumes:
+      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  php-unit:
+    volumes:
+      - .:/var/www/app:rw
+      - ./unit-config.json:/docker-entrypoint.d/config.json:ro
+    depends_on:
+      - database
+
+  database:
+    image: postgres:${POSTGRES_VERSION:-16.8}-alpine
+    volumes:
+      - case_pgdata:/var/lib/postgresql/data:rw
+
+volumes:
+  case_pgdata: ~
+

@@ -1,0 +1,23 @@
+api:
+  dashboard: true
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
+providers:
+  docker:
+    watch: true
+    exposedByDefault: false
+    network: proxy
+
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: unclepepper.dev@gmail.com
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: http

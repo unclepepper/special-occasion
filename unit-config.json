@@ -1,0 +1,29 @@
+{
+  "listeners": {
+    "*:80": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "match": {
+        "uri": "/*"
+      },
+      "action": {
+        "share": "/var/www/app/public$uri",
+        "fallback": {
+          "pass": "applications/php"
+        }
+      }
+    }
+  ],
+  "applications": {
+    "php": {
+      "type": "php",
+      "processes": 4,
+      "root": "/var/www/app/public",
+      "index": "index.php",
+      "script": "index.php"
+    }
+  }
+}

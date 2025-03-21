@@ -1,0 +1,7 @@
+app:
+  resource: ../../src/Presentation/Web/App/Controller/
+  type: attribute
+
+kernel:
+  resource: ../../src/Kernel.php
+  type: attribute
