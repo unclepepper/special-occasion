@@ -2,7 +2,16 @@ PROJECT_NAME="$(shell basename "$(PWD)")"
 PROJECT_DIR="$(shell pwd)"
 DOCKER_COMPOSE="$(shell which docker-compose)"
 DOCKER="$(shell which docker)"
-CONTAINER_PHP="php-unit"
+CONTAINER_PHP=php-unit
+CONTAINER_PHP_NAME=$(APP_NAME)-${CONTAINER_PHP}
+
+
+# Загрузка переменных из .env файла
+ifneq ("$(wildcard .env.local)","")
+	include .env.local
+	export
+endif
+
 
 
 init: generate-env  generate-override up sleep-5 ci m-migrate
@@ -89,6 +98,6 @@ right:
 	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} chown -R www-data:www-data .
 
 ip:
-	${DOCKER} inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${CONTAINER_PHP}
+	${DOCKER} inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${CONTAINER_PHP_NAME}
 
 .PHONY: m-create m-list m-diff m-up m-migrate m-prev cc right ip

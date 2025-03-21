@@ -1,7 +1,7 @@
 services:
   traefik:
     restart: "no"
-    container_name: ${PROJECT_NAME}-traefik
+    container_name: ${APP_NAME}-traefik
     ports:
       - ${TRAEFIK_HTTP_PORT:-80}:80
       - ${TRAEFIK_HTTPS_PORT:-443}:443
@@ -13,7 +13,7 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.middlewares.redirect.redirectscheme.scheme=http
     networks:
-      - case-network
+      - ${APP_NAME}-network
 
   php-unit:
     restart: "no"
@@ -23,7 +23,7 @@ services:
         UID: ${DUID:-1000}
         GID: ${DGID:-1000}
       dockerfile: docker/${APP_ENV}/Dockerfile
-    container_name: ${PROJECT_NAME}-php-unit
+    container_name: ${APP_NAME}-php-unit
     environment:
       COMPOSER_MEMORY_LIMIT: -1
       COMPOSER_ALLOW_SUPERUSER: 1
@@ -31,21 +31,21 @@ services:
     labels:
       - traefik.enable=true
       # http
-      - traefik.http.routers.uncle-http.entrypoints=http
-      - traefik.http.routers.uncle-http.rule=Host(`case.localhost`)
+      - traefik.http.routers.${APP_NAME}-http.entrypoints=http
+      - traefik.http.routers.${APP_NAME}-http.rule=Host(`case.localhost`)
       # https
-#      - traefik.http.routers.uncle-https.entrypoints=https
-#      - traefik.http.routers.uncle-https.rule=Host(`api.uclepepper.localhost`)
-#      - traefik.http.routers.uncle-https.tls.certresolver=letsencrypt
-#      - traefik.http.routers.uncle-http.middlewares=redirect-to-https
+#      - traefik.http.routers.${APP_NAME}-https.entrypoints=https
+#      - traefik.http.routers.${APP_NAME}-https.rule=Host(`api.uclepepper.localhost`)
+#      - traefik.http.routers.${APP_NAME}-https.tls.certresolver=letsencrypt
+#      - traefik.http.routers.${APP_NAME}-http.middlewares=redirect-to-https
 #      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
     networks:
-      - case-network
+      - ${APP_NAME}-network
 
   database:
     restart: "no"
     image: postgres:${POSTGRES_VERSION:-16.8}-alpine
-    container_name: ${PROJECT_NAME}-database
+    container_name: ${APP_NAME}-database
     ports:
       - 5432:5432
     environment:
@@ -53,7 +53,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
     networks:
-      - case-network
+      - ${APP_NAME}-network
     labels:
       - traefik.enable=false
 
