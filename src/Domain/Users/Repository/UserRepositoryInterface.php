@@ -2,11 +2,9 @@
 
 namespace App\Domain\Users\Repository;
 
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Domain\Users\Entity\User;
 
 interface UserRepositoryInterface
 {
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;
-
-    public function findUserById($id): ?object;
+    public function findUserById($id): ?User;
 }
