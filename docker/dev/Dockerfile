@@ -35,8 +35,7 @@ RUN chmod +x /entrypoint.sh
 WORKDIR /var/www/app
 
 
-# Запускаем PHP Unit и NGINX
-#CMD ["unitd", "--no-daemon", "--control", "unix:/var/run/unit/control.sock"]
-COPY . .
+
+COPY . /var/www/app
 
 ENTRYPOINT ["/entrypoint.sh"]
