@@ -14,15 +14,11 @@ abstract class Uid
 
         if(null === $value)
         {
-            $value = Uuid::v4();
+            $value = Uuid::v7();
         }
 
-        if(is_string($value))
-        {
-            $value = new Uuid($value);
-        }
 
-        $this->value = $value;
+        $this->value = new Uuid((string) $value);
 
     }
 

@@ -101,3 +101,6 @@ ip:
 	${DOCKER} inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${CONTAINER_PHP_NAME}
 
 .PHONY: m-create m-list m-diff m-up m-migrate m-prev cc right ip
+
+stan:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} vendor/bin/phpstan analyse src

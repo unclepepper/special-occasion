@@ -28,10 +28,9 @@ class UserRepository extends ServiceEntityRepository implements  UserRepositoryI
     }
 
 
-    public function findUserById($id): ?User
+    public function findUserById(UserUid|string $id): ?User
     {
 
-        $id = $id['id'] ?? $id;
 
         if(is_string($id))
         {

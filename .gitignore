@@ -29,3 +29,6 @@ docker/pgdata
 /to-do
 
 /traefik/letsencrypt/
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

@@ -13,12 +13,12 @@ class GetUserByIdRepository implements GetUserByIdRepositoryInterface
 {
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
     ) {}
 
-    public function getById(UserUid $userUid): mixed
+    public function getById(UserUid $userUid): ?User
     {
-        $qb = $this->entityManager->createQueryBuilder('u');
+        $qb = $this->entityManager->createQueryBuilder();
 
         $qb
             ->select('users')
