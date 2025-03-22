@@ -19,6 +19,9 @@ services:
     App\Domain\:
         resource: '../src/Domain/**/Service/*.php'
 
+    App\Domain\Common\:
+        resource: '../src/Domain/Common/**/*.php'
+
     App\Presentation\:
         resource: '../src/Presentation/*'
 
