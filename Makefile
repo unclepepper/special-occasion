@@ -61,7 +61,13 @@ logs:
 ci:
 	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} composer install --no-interaction
 
-.PHONY: bash ps logs ci
+cu:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} composer update -w
+
+c-dump:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} composer dump-autoload
+
+.PHONY: bash ps logs ci cu c-dump
 
 
 ##
@@ -104,3 +110,9 @@ ip:
 
 stan:
 	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} vendor/bin/phpstan analyse src
+
+#cs-fix:
+#	 ${DOCKER_COMPOSE} exec ${CONTAINER_PHP}  PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix src
+
+
+.PHONY: stan cs-fix

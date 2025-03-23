@@ -4,11 +4,11 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.3",
+        "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3.9.4",
-        "doctrine/doctrine-bundle": "^2.13.2",
+        "doctrine/doctrine-bundle": "^2.14.0",
         "doctrine/doctrine-migrations-bundle": "^3.4.1",
         "doctrine/orm": "^3.3.2",
         "phpdocumentor/reflection-docblock": "^5.6.1",
@@ -47,7 +47,8 @@
         "twig/twig": "^2.12|^3.20"
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.73",
+        "phpstan/phpstan": "^2.1.8",
         "phpunit/phpunit": "^9.6.22",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
@@ -85,7 +86,8 @@
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*",
         "symfony/polyfill-php82": "*",
-        "symfony/polyfill-php83": "*"
+        "symfony/polyfill-php83": "*",
+        "symfony/polyfill-php84": "*"
     },
     "scripts": {
         "auto-scripts": {

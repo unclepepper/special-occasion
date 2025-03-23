@@ -10,14 +10,11 @@ use App\Domain\Users\Repository\UserRepositoryInterface;
 use App\Domain\Users\Type\UserUid;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
  */
-class UserRepository extends ServiceEntityRepository implements  UserRepositoryInterface
+class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
     private GetUserByIdRepositoryInterface $userByIdRepository;
 
@@ -27,17 +24,12 @@ class UserRepository extends ServiceEntityRepository implements  UserRepositoryI
         $this->userByIdRepository = $getUserById;
     }
 
-
-    public function findUserById(UserUid|string $id): ?User
+    public function findUserById(string|UserUid $id): ?User
     {
-
-
-        if(is_string($id))
-        {
+        if (is_string($id)) {
             $id = new UserUid($id);
         }
 
         return $this->userByIdRepository->getById($id);
     }
-
 }

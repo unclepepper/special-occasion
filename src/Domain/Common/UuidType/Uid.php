@@ -9,22 +9,13 @@ abstract class Uid
 {
     private Uuid $value;
 
-    public function __construct(AbstractUid|self|string|null $value = null)
+    public function __construct(null|AbstractUid|self|string $value = null)
     {
-
-        if(null === $value)
-        {
+        if (null === $value) {
             $value = Uuid::v7();
         }
 
-
         $this->value = new Uuid((string) $value);
-
-    }
-
-    public function getValue(): Uuid
-    {
-        return $this->value;
     }
 
     public function __toString(): string
@@ -32,15 +23,18 @@ abstract class Uid
         return (string) $this->value;
     }
 
+    public function getValue(): Uuid
+    {
+        return $this->value;
+    }
+
     public function equals(mixed $value): bool
     {
-        if($value === null)
-        {
+        if (null === $value) {
             return false;
         }
 
-        if(is_string($value))
-        {
+        if (is_string($value)) {
             return (string) $this->value === $value;
         }
 

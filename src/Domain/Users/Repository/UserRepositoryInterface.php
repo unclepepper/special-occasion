@@ -7,5 +7,5 @@ use App\Domain\Users\Type\UserUid;
 
 interface UserRepositoryInterface
 {
-    public function findUserById(UserUid|string $id): ?User;
+    public function findUserById(string|UserUid $id): ?User;
 }

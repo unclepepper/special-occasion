@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class GetUserByIdRepository implements GetUserByIdRepositoryInterface
 {
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
     ) {}
@@ -25,7 +24,8 @@ class GetUserByIdRepository implements GetUserByIdRepositoryInterface
             ->from(User::class, 'users')
             ->where('users.id = :userUid')
             ->setParameter('userUid', $userUid, UserUid::TYPE)
-            ->setMaxResults(1);
+            ->setMaxResults(1)
+        ;
 
         return $qb->getQuery()->getOneOrNullResult();
     }

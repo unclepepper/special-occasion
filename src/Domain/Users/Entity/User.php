@@ -14,13 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface
 {
-
     #[Assert\NotBlank]
     #[Assert\Uuid]
     #[ORM\Id]
     #[ORM\Column(type: UserUid::TYPE)]
     private UserUid $id;
-
 
     /**
      * @var array<mixed>|string[]
@@ -28,7 +26,7 @@ class User implements UserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = ['ROLE_USER'];
 
-    public function __construct(string $id = null)
+    public function __construct(?string $id = null)
     {
         $this->id = new UserUid($id);
     }
@@ -54,12 +52,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param array<mixed>|null $role
+     * @param null|array<mixed> $role
      */
     public function setRoles(?array $role): void
     {
-        if($role)
-        {
+        if ($role) {
             $this->roles = $role;
         }
     }
@@ -69,9 +66,7 @@ class User implements UserInterface
      */
     public function getUserIdentifier(): string
     {
-
         return (string) $this->id;
-
     }
 
     public function eraseCredentials(): void {}

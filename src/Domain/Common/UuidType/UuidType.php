@@ -6,6 +6,7 @@ use App\Domain\Users\Type\UserUid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\StringType;
+use RuntimeException;
 use Symfony\Component\Uid\AbstractUid;
 use Symfony\Component\Uid\Uuid;
 
@@ -15,25 +16,18 @@ abstract class UuidType extends StringType
     {
         $classType = $this->getClassType();
 
-        if(null === $value)
-        {
+        if (null === $value) {
             return null;
         }
 
-        if($value instanceof AbstractUid)
-        {
+        if ($value instanceof AbstractUid) {
             return new $classType($value);
         }
 
-        if(is_string($value))
-        {
-            try
-            {
+        if (is_string($value)) {
+            try {
                 return new $classType(Uuid::fromString($value));
-            }
-            catch(\RuntimeException)
-            {
-
+            } catch (RuntimeException) {
             }
         }
 
@@ -44,25 +38,18 @@ abstract class UuidType extends StringType
     {
         $classType = $this->getClassType();
 
-        if($value === null)
-        {
+        if (null === $value) {
             return null;
         }
 
-        if(is_string($value))
-        {
-            try
-            {
+        if (is_string($value)) {
+            try {
                 return new $classType(Uuid::fromString($value));
-            }
-            catch(\RuntimeException)
-            {
-
+            } catch (RuntimeException) {
             }
         }
 
-        if($value instanceof UserUid)
-        {
+        if ($value instanceof UserUid) {
             return $value->getValue();
         }
 
@@ -74,13 +61,10 @@ abstract class UuidType extends StringType
         return true;
     }
 
-
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getStringTypeDeclarationSQL($column);
     }
 
-
     abstract public function getClassType(): string;
-
 }
