@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Web\App\Controller;
+namespace App\Presentation\Web\App\Controller\User;
 
 use App\Domain\Users\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

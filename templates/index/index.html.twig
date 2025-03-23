@@ -23,8 +23,8 @@
             {% endif %}
         </div>
         <div class="w-50 d-flex justify-content-between m-auto">
-            <a href="{{ path('app.create') }}"> CREATE LAST USER</a>
-            <a href="{{ path('app.delete', {'id': lastUser.id }) }}"> DELETE NEW USER</a>
+            <a href="{{ path('app.create') }}"> CREATE NEW USER</a>
+            <a href="{{ path('app.delete', {'id': lastUser.id }) }}"> DELETE LAST USER</a>
         </div>
     </div>
 {% endblock %}
