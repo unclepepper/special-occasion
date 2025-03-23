@@ -3,30 +3,28 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+    {% set lastUser = '' %}
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
+    <div class="container shadow mt-3 p-3 rounded">
+        <h3>Users ✅</h3>
+        <div class="w-50 m-auto mb-5 ">
 
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+            {% if user is not null %}
+                <p> New user: {{ user.id }} : {{ user.roles[0] }}</p>
+            {% endif %}
+            {% if users is not empty %}
+                {% for user in users %}
+                    <ul>
+                        <li>{{ user.id }} : {{ user.roles[0] }}</li>
+                    </ul>
 
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code>/var/www/app/src/Controller/IndexController.php</code></li>
-            <li>Your template at <code>/var/www/app/templates/index/index.html.twig</code></li>
-        </ul>
-        {% if user is not null %}
-            {{ user.id }} : {{ user.roles[0] }}
-        {% endif %}
+                {% endfor %}
+                {% set lastUser = users | first %}
+            {% endif %}
+        </div>
+        <div class="w-50 d-flex justify-content-between m-auto">
+            <a href="{{ path('app.create') }}"> CREATE LAST USER</a>
+            <a href="{{ path('app.delete', {'id': lastUser.id }) }}"> DELETE NEW USER</a>
+        </div>
     </div>
 {% endblock %}
