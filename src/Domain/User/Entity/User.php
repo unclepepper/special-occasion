@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Users\Entity;
+namespace App\Domain\User\Entity;
 
-use App\Domain\Users\Type\UserUid;
+use App\Domain\User\Type\UserUid;
 use App\Infrastructure\Doctrine\Repository\UserRepository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;

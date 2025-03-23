@@ -22,9 +22,11 @@
                 {% set lastUser = users | first %}
             {% endif %}
         </div>
+        {% if lastUser is not empty %}
         <div class="w-50 d-flex justify-content-between m-auto">
             <a href="{{ path('app.create') }}"> CREATE NEW USER</a>
             <a href="{{ path('app.delete', {'id': lastUser.id }) }}"> DELETE LAST USER</a>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

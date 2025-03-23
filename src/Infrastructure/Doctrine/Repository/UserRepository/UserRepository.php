@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository\UserRepository;
 
-use App\Domain\Users\Entity\User;
-use App\Domain\Users\Repository\GetUserByIdRepositoryInterface;
-use App\Domain\Users\Repository\UserRepositoryInterface;
-use App\Domain\Users\Type\UserUid;
+use App\Domain\User\Entity\User;
+use App\Domain\User\Repository\GetUserByIdRepositoryInterface;
+use App\Domain\User\Repository\UserRepositoryInterface;
+use App\Domain\User\Type\UserUid;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

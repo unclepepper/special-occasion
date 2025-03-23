@@ -2,7 +2,6 @@
 
 namespace App\Domain\Common\UuidType;
 
-use App\Domain\Users\Type\UserUid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\StringType;
@@ -49,7 +48,7 @@ abstract class UuidType extends StringType
             }
         }
 
-        if ($value instanceof UserUid) {
+        if ($value instanceof  Uid) {
             return $value->getValue();
         }
 

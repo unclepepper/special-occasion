@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Users\Repository;
+namespace App\Domain\User\Repository;
 
-use App\Domain\Users\Entity\User;
-use App\Domain\Users\Type\UserUid;
+use App\Domain\User\Entity\User;
+use App\Domain\User\Type\UserUid;
 
 interface GetUserByIdRepositoryInterface
 {

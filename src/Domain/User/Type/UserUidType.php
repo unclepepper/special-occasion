@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Users\Type;
+namespace App\Domain\User\Type;
 
 use App\Domain\Common\UuidType\UuidType;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Users\Type;
+namespace App\Domain\User\Type;
 
 use App\Domain\Common\UuidType\Uid;
 

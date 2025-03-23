@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Tests\Domain\Users;
+declare(strict_types=1);
+
+namespace App\Tests\Domain\User;
 
 use App\Domain\Common\UuidType\Uid;
-use App\Domain\Users\Entity\User;
-use App\Domain\Users\Repository\UserRepositoryInterface;
+use App\Domain\User\Entity\User;
+use App\Domain\User\Repository\UserRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
