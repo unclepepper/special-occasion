@@ -1,5 +1,6 @@
 <?php
 
+use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
@@ -14,16 +15,17 @@ use Symfony\UX\Turbo\TurboBundle;
 use Twig\Extra\TwigExtraBundle\TwigExtraBundle;
 
 return [
-    FrameworkBundle::class          => ['all' => true],
-    MakerBundle::class              => ['dev' => true],
-    DoctrineBundle::class           => ['all' => true],
-    DoctrineMigrationsBundle::class => ['all' => true],
-    DebugBundle::class              => ['dev' => true],
-    TwigBundle::class               => ['all' => true],
-    WebProfilerBundle::class        => ['dev' => true, 'test' => true],
-    StimulusBundle::class           => ['all' => true],
-    TurboBundle::class              => ['all' => true],
-    TwigExtraBundle::class          => ['all' => true],
-    SecurityBundle::class           => ['all' => true],
-    MonologBundle::class            => ['all' => true],
+    FrameworkBundle::class                          => ['all' => true],
+    MakerBundle::class                              => ['dev' => true],
+    DoctrineBundle::class                           => ['all' => true],
+    DoctrineMigrationsBundle::class                 => ['all' => true],
+    DebugBundle::class                              => ['dev' => true],
+    TwigBundle::class                               => ['all' => true],
+    WebProfilerBundle::class                        => ['dev' => true, 'test' => true],
+    StimulusBundle::class                           => ['all' => true],
+    TurboBundle::class                              => ['all' => true],
+    TwigExtraBundle::class                          => ['all' => true],
+    SecurityBundle::class                           => ['all' => true],
+    MonologBundle::class                            => ['all' => true],
+    DAMADoctrineTestBundle::class                   => ['test' => true],
 ];
