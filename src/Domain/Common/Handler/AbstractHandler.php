@@ -41,23 +41,19 @@ abstract class AbstractHandler
      * @throws ReflectionException
      * @throws ClassNotFoundException
      */
-    protected function persistOrUpdate(string $root, string $event): void
+    protected function persistOrUpdate(string|object $root, string|object $event): void
     {
-        if (class_exists($root)) {
-            $root = new $root();
+        if (is_string($root) && class_exists($root)) {
+            // @phpstan-ignore-next-line
+            $this->root = new $root();
         }
 
-        if (class_exists($event)) {
-            $event = new $event();
+        if (is_string($event) && class_exists($event)) {
+            // @phpstan-ignore-next-line
+            $this->event = new $event();
         }
 
-        if ($root instanceof UserProfile) {
-            $this->root  = $root;
-        }
 
-        if ($event instanceof UserProfileEvent) {
-            $this->event = $event;
-        }
 
         if (!$this->command->event) {
             $this->event->setRoot($this->root);
@@ -81,16 +77,16 @@ abstract class AbstractHandler
             }
 
             $rootClass  = $this->root::class;
-            $root       = $this->entityManager
+            $rootRepo       = $this->entityManager
                 ->getRepository($rootClass)
                 ->findOneBy(['event' => $this->command->event])
             ;
 
-            if (null === $root) {
+            if (null === $rootRepo) {
                 throw new ClassNotFoundException('Object Not Found');
             }
 
-            $this->root = $root;
+            $this->root = $rootRepo;
 
             $this->event->setRoot($this->root);
 
