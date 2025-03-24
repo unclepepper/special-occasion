@@ -55,9 +55,11 @@ class UserProfileEvent
         return $this->id;
     }
 
-    public function setRoot(UserProfile|UserProfileUid $profile): void
+    public function setRoot(false|UserProfile|UserProfileUid $profile): void
     {
-        $this->profile = $profile instanceof UserProfile ? $profile->getId() : $profile;
+        if (false !== $profile) {
+            $this->profile = $profile instanceof UserProfile ? $profile->getId() : $profile;
+        }
     }
 
     public function getRoot(): ?UserProfileUid
@@ -67,11 +69,14 @@ class UserProfileEvent
 
     public function setEntity(UserProfileEventInterface $dto): self
     {
-        $this->username = $dto->username;
-        $this->gender   = $dto->gender;
-        $this->birthday = $dto->birthday;
+        $this->username = $dto->username ?: '';
+
+        $this->gender   = $dto->gender ?: UserGenderEnum::UNKNOWN;
+
+        if (false !== $dto->birthday) {
+            $this->birthday = $dto->birthday;
+        }
 
         return $this;
-        //        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
     }
 }

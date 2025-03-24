@@ -11,22 +11,27 @@ use App\Domain\UserProfile\Enum\UserGenderEnum;
 use App\Domain\UserProfile\UseCase\New\UserProfileHandler;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class CreateController extends AbstractController
 {
+    /**
+     * @throws ReflectionException
+     */
     #[Route('/create', name: 'app.create')]
     public function index(
         EntityManagerInterface $entityManager,
         UserProfileHandler $userProfileHandler
     ): Response {
         $userProfileDto           = new UserProfileNewDto();
-        $userProfileDto->event    = '0195c8e7-f9e4-7154-8afe-f85149158d3f';
-        $userProfileDto->profile  =  new UserProfile();
-        $userProfileDto->username = null;
-        $userProfileDto->birthday = new DateTimeImmutable('10-11-2025');
+
+        $userProfileDto->event    = '0195c964-8370-7794-9f41-394a3f61aef9';
+        //        $userProfileDto->profile  =  new UserProfile();
+        $userProfileDto->username = 'Michael';
+        //        $userProfileDto->birthday = new DateTimeImmutable('2025-03-24');
         $userProfileDto->gender   = UserGenderEnum::MALE;
 
         $userProfileHandler->handle($userProfileDto);

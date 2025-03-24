@@ -14,50 +14,52 @@ use DateTimeImmutable;
 
 class UserProfileNewDto implements UserProfileEventInterface
 {
-    public ?UserProfileEventUid $event {
-        set(UserProfileEventUid|UserProfileEvent|string|null $value) {
+    public false|UserProfileEventUid $event = false {
+        set(UserProfileEventUid|UserProfileEvent|string|null|false $value) {
             if (is_string($value)) {
                 $value = new UserProfileEventUid(trim($value));
             }
+
             if ($value instanceof UserProfileEvent) {
                 $value = $value->getId();
             }
-            $this->event = $value;
+
+            $this->event = $value ?? false;
         }
         get {
             return $this->event;
         }
     }
-    public ?UserProfileUid $profile {
-        set(UserProfileUid|UserProfile|null $value) {
+    public false|UserProfileUid $profile = false {
+        set(UserProfileUid|UserProfile|null|false $value) {
             if ($value instanceof UserProfile) {
                 $value = $value->getId();
             }
-            $this->profile = $value;
+            $this->profile = $value ?? false;
         }
         get {
             return $this->profile;
         }
     }
-    public ?string $username {
-        set {
-            $this->username = $value;
+    public false|string $username = false {
+        set(string|false|null $value) {
+            $this->username = $value ?? false;
         }
         get {
             return $this->username;
         }
     }
-    public ?UserGenderEnum $gender {
-        set{
-            $this->gender = $value;
+    public false|UserGenderEnum $gender = false {
+        set(UserGenderEnum|false|null $value){
+            $this->gender = $value ?? false;
         }
         get {
             return $this->gender;
         }
     }
-    public ?DateTimeImmutable $birthday {
-        set {
-            $this->birthday = $value;
+    public DateTimeImmutable|false $birthday = false {
+        set(DateTimeImmutable|false|null $value)  {
+            $this->birthday = $value ?? false;
         }
         get {
             return $this->birthday;
