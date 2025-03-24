@@ -14,7 +14,7 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/{Domain,Application}/**/*{Interface,Service,Handler,Mapper}.php'
+        resource: '../src/{Domain,Application}/**/*{Interface,Service,Handler,Mapper,Messenger}.php'
 
     App\Domain\:
         resource: '../src/Domain/**/Service/*.php'
@@ -32,6 +32,9 @@ services:
     App\Infrastructure\Doctrine\:
         resource: '../src/Infrastructure/Doctrine/*'
         exclude: '../src/Infrastructure/Doctrine/{Migrations}'
+
+#    App\Domain\UserProfile\UseCase\New\UserProfileHandler:
+#        public: true
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -13,6 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<User>
+ *
+ * @method findAll()
  */
 class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {

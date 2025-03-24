@@ -19,9 +19,10 @@ final class DeleteController extends AbstractController
         string $id
     ): Response {
         $user = $userRepository->findUserById($id);
-
-        $entityManager->remove($user);
-        $entityManager->flush();
+        if (null !== $user) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app.index');
     }

@@ -48,7 +48,7 @@ abstract class UuidType extends StringType
             }
         }
 
-        if ($value instanceof  Uid) {
+        if ($value instanceof Uid) {
             return $value->getValue();
         }
 

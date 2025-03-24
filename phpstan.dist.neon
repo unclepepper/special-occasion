@@ -8,6 +8,6 @@ parameters:
         - tests/
     ignoreErrors:
     		-
-    			message: "#^Method App\\\\Domain\\\\Users\\\\Entity\\\\User\\:\\:getUserIdentifier\\(\\) should return non\\-empty\\-string but returns string\\.$#"
+    			message: "#^Method App\\\\Domain\\\\User\\\\Entity\\\\User\\:\\:getUserIdentifier\\(\\) should return non\\-empty\\-string but returns string\\.$#"
     			count: 1
-    			path: src/Domain/Users/Entity/User.php
+    			path: src/Domain/User/Entity/User.php
