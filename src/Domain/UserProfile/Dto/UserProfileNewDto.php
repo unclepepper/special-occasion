@@ -14,7 +14,7 @@ use DateTimeImmutable;
 
 class UserProfileNewDto implements UserProfileEventInterface
 {
-    public false|UserProfileEventUid $event = false {
+    public false|string|UserProfileEventUid $event = false {
         set(UserProfileEventUid|UserProfileEvent|string|null|false $value) {
             if (is_string($value)) {
                 $value = new UserProfileEventUid(trim($value));

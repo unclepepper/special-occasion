@@ -25,7 +25,7 @@ class UserProfile
     #[ORM\Column(type: UserProfileEventUid::TYPE)]
     private UserProfileEventUid $event;
 
-    public function __construct(?string $id = null)
+    public function __construct(null|string|UserProfileUid $id = null)
     {
         $this->id = new UserProfileUid($id);
     }

@@ -26,12 +26,12 @@ final class CreateController extends AbstractController
         EntityManagerInterface $entityManager,
         UserProfileHandler $userProfileHandler
     ): Response {
-        $userProfileDto           = new UserProfileNewDto();
+        $userProfileDto = new UserProfileNewDto();
 
-        $userProfileDto->event    = '0195c964-8370-7794-9f41-394a3f61aef9';
-        //        $userProfileDto->profile  =  new UserProfile();
+        $userProfileDto->event    = '0195c998-b1e7-7bc9-a8b9-382b13f5d9da';
+        $userProfileDto->profile  = new UserProfile();
         $userProfileDto->username = 'Michael';
-        //        $userProfileDto->birthday = new DateTimeImmutable('2025-03-24');
+        $userProfileDto->birthday = new DateTimeImmutable('2025-03-24');
         $userProfileDto->gender   = UserGenderEnum::MALE;
 
         $userProfileHandler->handle($userProfileDto);

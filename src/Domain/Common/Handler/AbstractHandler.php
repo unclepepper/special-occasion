@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 
 abstract class AbstractHandler
@@ -41,7 +42,7 @@ abstract class AbstractHandler
      * @throws ReflectionException
      * @throws ClassNotFoundException
      */
-    protected function persistOrUpdate(string|object $root, string|object $event): void
+    protected function persistOrUpdate(object|string $root, object|string $event): void
     {
         if (is_string($root) && class_exists($root)) {
             // @phpstan-ignore-next-line
@@ -52,8 +53,6 @@ abstract class AbstractHandler
             // @phpstan-ignore-next-line
             $this->event = new $event();
         }
-
-
 
         if (!$this->command->event) {
             $this->event->setRoot($this->root);
@@ -66,47 +65,47 @@ abstract class AbstractHandler
             $this->entityManager->persist($this->root);
         } else {
             /** Получаем активное событие */
-            $EventClass = $this->event::class;
-            $EventRepo  = $this->entityManager
+            $EventClass    = $this->event::class;
+            $currentEvent  = $this->entityManager
                 ->getRepository($EventClass)
                 ->find($this->command->event)
             ;
 
-            if (!isset($EventRepo)) {
+            if (!isset($currentEvent)) {
                 throw new InvalidArgumentException();
             }
 
-            $rootClass  = $this->root::class;
-            $rootRepo       = $this->entityManager
+            $rootClass     = $this->root::class;
+            $rootFromRepo  = $this->entityManager
                 ->getRepository($rootClass)
                 ->findOneBy(['event' => $this->command->event])
             ;
 
-            if (null === $rootRepo) {
-                throw new ClassNotFoundException('Object Not Found');
+            if (null === $rootFromRepo) {
+                throw new NotFoundHttpException(sprintf('%s is deleted or event is not actual', $rootClass));
             }
 
-            $this->root = $rootRepo;
+            $this->root = $rootFromRepo;
 
             $this->event->setRoot($this->root);
 
             $dtoReflection = new ReflectionClass($this->command);
 
-            $EventRepoReflection = new ReflectionClass($EventRepo);
+            $EventRepoReflection = new ReflectionClass($currentEvent);
 
             $dtoReflectionProperties = $dtoReflection->getProperties();
 
             foreach ($dtoReflectionProperties as $dtoProperty) {
                 $property = $dtoProperty->getName();
 
-                if (!property_exists($EventRepo, $property)) {
+                if (!property_exists($currentEvent, $property)) {
                     continue;
                 }
 
                 $repoProperty = $EventRepoReflection->getProperty($property);
 
                 // Получаем значения свойства для обоих объектов
-                $repoValue = $repoProperty->getValue($EventRepo);
+                $repoValue = $repoProperty->getValue($currentEvent);
                 $dtoValue  = $dtoProperty->getValue($this->command);
 
                 if (null === $dtoValue) {

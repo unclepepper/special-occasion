@@ -12,7 +12,7 @@ use DateTimeImmutable;
 interface UserProfileEventInterface
 {
     /** Id события профиля  */
-    public false|UserProfileEventUid $event { get; }
+    public false|string|UserProfileEventUid $event { get; }
 
     /** Id  профиля  */
     public false|UserProfileUid $profile { get; }
