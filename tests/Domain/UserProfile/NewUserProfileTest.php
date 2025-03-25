@@ -32,15 +32,15 @@ class NewUserProfileTest extends KernelTestCase
         /** @var UserProfileHandler $handler */
         $handler = self::getContainer()->get(UserProfileHandler::class);
 
-        /** Create Dto for UserProfile entity */
+        /** Create Dto for UserProfile */
         $userProfileDto           = new UserProfileNewDto();
         $userProfileDto->username = 'TestUsername';
         $userProfileDto->birthday = new DateTimeImmutable('1981-03-07 08:30:00');
         $userProfileDto->gender   = UserGenderEnum::MALE;
 
-        self::assertEquals($userProfileDto->username, 'TestUsername');
-        self::assertEquals($userProfileDto->birthday->format('Y-m-d H:i:s'), '1981-03-07 08:30:00');
-        self::assertEquals($userProfileDto->gender, UserGenderEnum::MALE);
+        self::assertEquals('TestUsername', $userProfileDto->username);
+        self::assertEquals('1981-03-07 08:30:00', $userProfileDto->birthday->format('Y-m-d H:i:s'));
+        self::assertEquals(UserGenderEnum::MALE, $userProfileDto->gender);
 
         /** Create UserProfile and UserProfileEvent via Dto */
         $UserProfile = $handler->handle($userProfileDto);
@@ -54,6 +54,20 @@ class NewUserProfileTest extends KernelTestCase
         self::assertInstanceOf(UserProfileEvent::class, $userProfileEvent);
         self::assertInstanceOf(UserProfile::class, $userProfileRoot);
         self::assertEquals($UserProfile, $userProfileRoot);
+
+        /** Create Dto for update UserProfile */
+        $userProfileDtoEdit           = new UserProfileNewDto();
+        $userProfileDtoEdit->event    =$userProfileRoot->getEvent();
+        $userProfileDtoEdit->username = 'TestUsername-2';
+        $userProfileDtoEdit->gender   = UserGenderEnum::FEMALE;
+
+        /** Create UserProfile and UserProfileEvent via Dto */
+        $handler->handle($userProfileDtoEdit);
+
+        $userProfileEventRepoEdit     = $em->getRepository(UserProfileEvent::class);
+        $userProfileEventCurrent      = $userProfileEventRepoEdit->findOneBy(['id' => $userProfileRoot->getEvent()]);
+
+        dump($userProfileEventCurrent);
 
         self::assertTrue(true);
     }
