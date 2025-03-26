@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 
 /**
  * @internal
@@ -23,6 +24,7 @@ class NewUserProfileTest extends KernelTestCase
 {
     /**
      * @throws ReflectionException
+     * @throws ClassNotFoundException
      */
     public function testNewUserProfile(): void
     {
@@ -65,9 +67,6 @@ class NewUserProfileTest extends KernelTestCase
         $handler->handle($userProfileDtoEdit);
 
         $userProfileEventRepoEdit     = $em->getRepository(UserProfileEvent::class);
-        $userProfileEventCurrent      = $userProfileEventRepoEdit->findOneBy(['id' => $userProfileRoot->getEvent()]);
-
-        dump($userProfileEventCurrent);
 
         self::assertTrue(true);
     }

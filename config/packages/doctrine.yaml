@@ -30,7 +30,7 @@ doctrine:
                 prefix: 'App\Domain'
                 alias: App
         controller_resolver:
-            auto_mapping: false
+            auto_mapping: true
 
 when@test:
     doctrine:
