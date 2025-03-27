@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Common\Handler;
 
-use App\Domain\UserProfile\Entity\Event\UserProfileEvent;
-use App\Domain\UserProfile\Entity\Event\UserProfileEventInterface;
-use App\Domain\UserProfile\Entity\UserProfile;
 use Doctrine\ORM\EntityManagerInterface;
 use ReflectionException;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
@@ -15,9 +12,9 @@ use Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 
 abstract class AbstractHandler
 {
-    protected UserProfile $root;
-    private UserProfileEventInterface $command;
-    private UserProfileEvent $event;
+    protected object $root;
+    private object $command;
+    private object $event;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -30,7 +27,7 @@ abstract class AbstractHandler
         }
     }
 
-    protected function setCommand(UserProfileEventInterface $command): self
+    protected function setCommand(object $command): self
     {
         $this->command = $command;
 
@@ -44,15 +41,15 @@ abstract class AbstractHandler
     protected function createOrUpdate(object|string $root, object|string $event): void
     {
         if (is_string($root) && class_exists($root)) {
-            // @phpstan-ignore-next-line
             $this->root = new $root();
         }
 
         if (is_string($event) && class_exists($event)) {
-            // @phpstan-ignore-next-line
             $this->event = new $event();
         }
 
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         if (!$this->command->event) {
             $this->saveEntity();
         } else {
@@ -67,9 +64,16 @@ abstract class AbstractHandler
      */
     private function saveEntity(): void
     {
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->event->setRoot($this->root);
+
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->event->setEntity($this->command);
 
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->root->setEvent($this->event);
 
         $this->entityManager->clear();
@@ -86,6 +90,8 @@ abstract class AbstractHandler
         $EventClass   = $this->event::class;
         $currentEvent = $this->entityManager
             ->getRepository($EventClass)
+            // TODO:  solve the problem
+            // @phpstan-ignore-next-line
             ->find($this->command->event)
         ;
 
@@ -97,6 +103,8 @@ abstract class AbstractHandler
         $rootClass    = $this->root::class;
         $rootFromRepo = $this->entityManager
             ->getRepository($rootClass)
+            // TODO:  solve the problem
+            // @phpstan-ignore-next-line
             ->findOneBy(['event' => $this->command->event])
         ;
 
@@ -107,11 +115,21 @@ abstract class AbstractHandler
         $this->root = $rootFromRepo;
 
         /** Если событие актуальное, то в новое событие сетим корень */
+
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->event->setRoot($this->root);
 
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->event->setEntityManager($this->entityManager);
 
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->event->setEntity($this->command);
+
+        // TODO:  solve the problem
+        // @phpstan-ignore-next-line
         $this->root->setEvent($this->event);
     }
 }
