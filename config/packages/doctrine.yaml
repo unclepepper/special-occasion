@@ -6,7 +6,7 @@ doctrine:
             user_id: App\Domain\User\Type\UserUidType
             user_profile: App\Domain\UserProfile\Type\UserProfile\UserProfileUidType
             user_profile_event: App\Domain\UserProfile\Type\Event\UserProfileEventUidType
-            user_profile_Info: App\Domain\UserProfile\Type\Info\UserProfileInfoUidType
+            user_profile_info: App\Domain\UserProfile\Type\Info\UserProfileInfoUidType
 
 
         # IMPORTANT: You MUST configure your server version,

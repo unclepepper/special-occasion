@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\UserProfile;
 
-use App\Domain\UserProfile\Dto\UserProfileNewDto;
+use App\Domain\UserProfile\Dto\UserProfileDto;
 use App\Domain\UserProfile\Entity\Event\UserProfileEvent;
 use App\Domain\UserProfile\Entity\UserProfile;
 use App\Domain\UserProfile\Enum\UserGenderEnum;
@@ -35,7 +35,7 @@ class NewUserProfileTest extends KernelTestCase
         $handler = self::getContainer()->get(UserProfileHandler::class);
 
         /** Create Dto for UserProfile */
-        $userProfileDto           = new UserProfileNewDto();
+        $userProfileDto           = new UserProfileDto();
         $userProfileDto->username = 'TestUsername';
         $userProfileDto->birthday = new DateTimeImmutable('1981-03-07 08:30:00');
         $userProfileDto->gender   = UserGenderEnum::MALE;
@@ -58,7 +58,7 @@ class NewUserProfileTest extends KernelTestCase
         self::assertEquals($UserProfile, $userProfileRoot);
 
         /** Create Dto for update UserProfile */
-        $userProfileDtoEdit           = new UserProfileNewDto();
+        $userProfileDtoEdit           = new UserProfileDto();
         $userProfileDtoEdit->event    =$userProfileRoot->getEvent();
         $userProfileDtoEdit->username = 'TestUsername-2';
         $userProfileDtoEdit->gender   = UserGenderEnum::FEMALE;
