@@ -11,9 +11,9 @@ use App\Domain\UserProfile\Enum\UserStatusEnum;
 use App\Domain\UserProfile\Type\Info\UserProfileInfoUid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\Validator\Constraints as Assert;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users_profile_info')]
@@ -41,7 +41,7 @@ class UserProfileInfo extends AbstractEntity
     private string $surname;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true, enumType: UserStatusEnum::class)]
-    private ?UserStatusEnum $status = UserStatusEnum::NEW;
+    private ?UserStatusEnum $status = UserStatusEnum::INACTIVE;
 
     public function __construct(UserProfileEvent $event)
     {

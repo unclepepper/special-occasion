@@ -6,7 +6,6 @@ namespace App\Domain\UserProfile\Dto;
 
 use App\Domain\UserProfile\Entity\Event\UserProfileEvent;
 use App\Domain\UserProfile\Entity\Event\UserProfileEventInterface;
-use App\Domain\UserProfile\Entity\Info\UserProfileInfo;
 use App\Domain\UserProfile\Entity\UserProfile;
 use App\Domain\UserProfile\Enum\UserGenderEnum;
 use App\Domain\UserProfile\Type\Event\UserProfileEventUid;
@@ -71,8 +70,8 @@ class UserProfileDto implements UserProfileEventInterface
         }
     }
 
-    public false|UserProfileInfo $info = false {
-        set(UserProfileInfo|null|false $value) {
+    public false|UserProfileInfoDto $info = false {
+        set(UserProfileInfoDto|null|false $value) {
             $this->info = $value ?? false;
         }
         get {

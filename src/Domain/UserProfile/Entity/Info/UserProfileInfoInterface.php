@@ -2,9 +2,9 @@
 
 namespace App\Domain\UserProfile\Entity\Info;
 
-use App\Domain\UserProfile\Type\Event\UserProfileEventUid;
+use App\Domain\UserProfile\Entity\Event\UserProfileEvent;
 
 interface UserProfileInfoInterface
 {
-    public false|string|UserProfileEventUid $event { get; }
+    public false|UserProfileEvent $event { get; }
 }

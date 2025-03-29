@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\UserProfile\Dto;
 
+use App\Domain\UserProfile\Entity\Event\UserProfileEvent;
 use App\Domain\UserProfile\Entity\Info\UserProfileInfoInterface;
 use App\Domain\UserProfile\Enum\UserStatusEnum;
-use App\Domain\UserProfile\Type\Event\UserProfileEventUid;
 use App\Domain\UserProfile\Type\Info\UserProfileInfoUid;
 use RuntimeException;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,7 +58,10 @@ class UserProfileInfoDto implements UserProfileInfoInterface
         }
     }
 
-    public string|UserProfileEventUid $event {
+    public false|UserProfileEvent $event = false{
+        set(false|null|UserProfileEvent $value)  {
+            $this->event = $value ?? false;
+        }
         get {
             return $this->event;
         }

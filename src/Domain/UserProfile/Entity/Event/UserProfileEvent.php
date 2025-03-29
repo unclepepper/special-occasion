@@ -6,6 +6,7 @@ namespace App\Domain\UserProfile\Entity\Event;
 
 use App\Domain\Common\Aggregate\AbstractEntity;
 use App\Domain\UserProfile\Dto\UserProfileDto;
+use App\Domain\UserProfile\Dto\UserProfileInfoDto;
 use App\Domain\UserProfile\Entity\Info\UserProfileInfo;
 use App\Domain\UserProfile\Entity\UserProfile;
 use App\Domain\UserProfile\Enum\UserGenderEnum;
@@ -45,7 +46,6 @@ class UserProfileEvent extends AbstractEntity
     private ?DateTimeImmutable $birthday = null;
 
     #[Assert\Valid]
-    #[ORM\OrderBy(['date' => 'ASC'])]
     #[ORM\OneToOne(targetEntity: UserProfileInfo::class, inversedBy: 'event', cascade: ['all'])]
     private ?UserProfileInfo $info = null;
 
@@ -78,8 +78,12 @@ class UserProfileEvent extends AbstractEntity
 
     public function getEntity(UserProfileDto $dto): UserProfileDto
     {
+        $userProfileInfoDto        = new UserProfileInfoDto();
+        $userProfileInfoDto->event = $this;
+        $this->info?->getEntity($userProfileInfoDto);
+
         $dto->username = $this->username;
-        $dto->info     = $this->info;
+        $dto->info     = $userProfileInfoDto;
         $dto->gender   = $this->gender;
         $dto->birthday = $this->birthday;
         $dto->profile  = $this->profile;
@@ -107,7 +111,11 @@ class UserProfileEvent extends AbstractEntity
         }
 
         if (false !== $dto->info) {
-            $this->info = $dto->info;
+            $event = $dto->info->event ?: $this;
+
+            $info = new UserProfileInfo($event);
+            $info->setEntity($dto->info);
+            $this->info = $info;
         }
 
         return $this;

@@ -6,14 +6,14 @@ namespace App\Domain\UserProfile\Enum;
 
 enum UserStatusEnum: string
 {
-    case ACTIVE = 'active';
-    case NEW    = 'new';
+    case ACTIVE      = 'active';
+    case INACTIVE    = 'inactive';
 
     case BLOCKED = 'blocked';
 
     public const VALUES = [
-        'new',
         'active',
+        'inactive',
         'blocked',
     ];
 
