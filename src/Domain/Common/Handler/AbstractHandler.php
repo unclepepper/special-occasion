@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use ReflectionException;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 
 abstract class AbstractHandler
 {
@@ -36,7 +35,6 @@ abstract class AbstractHandler
 
     /**
      * @throws ReflectionException
-     * @throws ClassNotFoundException
      */
     protected function createOrUpdate(object|string $root, object|string $event): void
     {
